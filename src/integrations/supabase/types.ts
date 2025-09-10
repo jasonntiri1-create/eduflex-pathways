@@ -14,16 +14,372 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookmarks: {
+        Row: {
+          course_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookmarks_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      courses: {
+        Row: {
+          application_deadline: string | null
+          city: string
+          country: string
+          created_at: string
+          degree_level: Database["public"]["Enums"]["degree_level"]
+          description: string | null
+          direct_entry_available: boolean | null
+          discipline: string
+          duration_months: number | null
+          entry_requirements: string[] | null
+          id: string
+          intake_month: number | null
+          is_premium: boolean | null
+          language: string | null
+          qs_ranking: number | null
+          rating: number | null
+          scholarship_available: boolean | null
+          title: string
+          tuition_amount: number | null
+          tuition_currency: string | null
+          university: string
+          university_logo_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          application_deadline?: string | null
+          city: string
+          country: string
+          created_at?: string
+          degree_level: Database["public"]["Enums"]["degree_level"]
+          description?: string | null
+          direct_entry_available?: boolean | null
+          discipline: string
+          duration_months?: number | null
+          entry_requirements?: string[] | null
+          id?: string
+          intake_month?: number | null
+          is_premium?: boolean | null
+          language?: string | null
+          qs_ranking?: number | null
+          rating?: number | null
+          scholarship_available?: boolean | null
+          title: string
+          tuition_amount?: number | null
+          tuition_currency?: string | null
+          university: string
+          university_logo_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          application_deadline?: string | null
+          city?: string
+          country?: string
+          created_at?: string
+          degree_level?: Database["public"]["Enums"]["degree_level"]
+          description?: string | null
+          direct_entry_available?: boolean | null
+          discipline?: string
+          duration_months?: number | null
+          entry_requirements?: string[] | null
+          id?: string
+          intake_month?: number | null
+          is_premium?: boolean | null
+          language?: string | null
+          qs_ranking?: number | null
+          rating?: number | null
+          scholarship_available?: boolean | null
+          title?: string
+          tuition_amount?: number | null
+          tuition_currency?: string | null
+          university?: string
+          university_logo_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      github_projects: {
+        Row: {
+          created_at: string
+          demo_url: string | null
+          description: string | null
+          github_repo_url: string
+          id: string
+          is_expo_project: boolean | null
+          is_featured: boolean | null
+          project_name: string
+          star_count: number | null
+          tech_stack: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          demo_url?: string | null
+          description?: string | null
+          github_repo_url: string
+          id?: string
+          is_expo_project?: boolean | null
+          is_featured?: boolean | null
+          project_name: string
+          star_count?: number | null
+          tech_stack?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          demo_url?: string | null
+          description?: string | null
+          github_repo_url?: string
+          id?: string
+          is_expo_project?: boolean | null
+          is_featured?: boolean | null
+          project_name?: string
+          star_count?: number | null
+          tech_stack?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          bio: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          current_streak: number | null
+          full_name: string | null
+          github_username: string | null
+          id: string
+          is_public_profile: boolean | null
+          last_login_at: string | null
+          latitude: number | null
+          linkedin_url: string | null
+          longitude: number | null
+          referral_code: string | null
+          referred_by_code: string | null
+          stripe_customer_id: string | null
+          subscription_status: Database["public"]["Enums"]["subscription_status"]
+          tier: Database["public"]["Enums"]["user_tier"]
+          total_xp: number | null
+          updated_at: string
+          user_id: string
+          website_url: string | null
+        }
+        Insert: {
+          bio?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          current_streak?: number | null
+          full_name?: string | null
+          github_username?: string | null
+          id?: string
+          is_public_profile?: boolean | null
+          last_login_at?: string | null
+          latitude?: number | null
+          linkedin_url?: string | null
+          longitude?: number | null
+          referral_code?: string | null
+          referred_by_code?: string | null
+          stripe_customer_id?: string | null
+          subscription_status?: Database["public"]["Enums"]["subscription_status"]
+          tier?: Database["public"]["Enums"]["user_tier"]
+          total_xp?: number | null
+          updated_at?: string
+          user_id: string
+          website_url?: string | null
+        }
+        Update: {
+          bio?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          current_streak?: number | null
+          full_name?: string | null
+          github_username?: string | null
+          id?: string
+          is_public_profile?: boolean | null
+          last_login_at?: string | null
+          latitude?: number | null
+          linkedin_url?: string | null
+          longitude?: number | null
+          referral_code?: string | null
+          referred_by_code?: string | null
+          stripe_customer_id?: string | null
+          subscription_status?: Database["public"]["Enums"]["subscription_status"]
+          tier?: Database["public"]["Enums"]["user_tier"]
+          total_xp?: number | null
+          updated_at?: string
+          user_id?: string
+          website_url?: string | null
+        }
+        Relationships: []
+      }
+      referrals: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          invitee_email: string | null
+          invitee_id: string | null
+          is_completed: boolean | null
+          referral_code: string
+          referrer_id: string
+          reward_type: string | null
+          reward_value: number | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          invitee_email?: string | null
+          invitee_id?: string | null
+          is_completed?: boolean | null
+          referral_code: string
+          referrer_id: string
+          reward_type?: string | null
+          reward_value?: number | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          invitee_email?: string | null
+          invitee_id?: string | null
+          is_completed?: boolean | null
+          referral_code?: string
+          referrer_id?: string
+          reward_type?: string | null
+          reward_value?: number | null
+        }
+        Relationships: []
+      }
+      support_tickets: {
+        Row: {
+          admin_response: string | null
+          created_at: string
+          email: string | null
+          id: string
+          message: string
+          status: Database["public"]["Enums"]["support_ticket_status"]
+          subject: string
+          type: Database["public"]["Enums"]["support_ticket_type"]
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          admin_response?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message: string
+          status?: Database["public"]["Enums"]["support_ticket_status"]
+          subject: string
+          type: Database["public"]["Enums"]["support_ticket_type"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          admin_response?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string
+          status?: Database["public"]["Enums"]["support_ticket_status"]
+          subject?: string
+          type?: Database["public"]["Enums"]["support_ticket_type"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_analytics: {
+        Row: {
+          country: string | null
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          user_id: string | null
+          user_tier: Database["public"]["Enums"]["user_tier"] | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          user_id?: string | null
+          user_tier?: Database["public"]["Enums"]["user_tier"] | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          user_id?: string | null
+          user_tier?: Database["public"]["Enums"]["user_tier"] | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_tier: {
+        Args: { user_uuid: string }
+        Returns: Database["public"]["Enums"]["user_tier"]
+      }
+      has_premium_access: {
+        Args: { user_uuid: string }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      degree_level:
+        | "bachelor"
+        | "master"
+        | "phd"
+        | "diploma"
+        | "certificate"
+        | "foundation"
+      subscription_status: "inactive" | "active" | "trial" | "cancelled"
+      support_ticket_status: "open" | "in_progress" | "resolved" | "closed"
+      support_ticket_type:
+        | "bug_report"
+        | "feature_request"
+        | "billing"
+        | "general"
+        | "feedback"
+      user_tier: "guest" | "free" | "premium"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +506,25 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      degree_level: [
+        "bachelor",
+        "master",
+        "phd",
+        "diploma",
+        "certificate",
+        "foundation",
+      ],
+      subscription_status: ["inactive", "active", "trial", "cancelled"],
+      support_ticket_status: ["open", "in_progress", "resolved", "closed"],
+      support_ticket_type: [
+        "bug_report",
+        "feature_request",
+        "billing",
+        "general",
+        "feedback",
+      ],
+      user_tier: ["guest", "free", "premium"],
+    },
   },
 } as const

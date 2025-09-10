@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -6,71 +6,105 @@ import { Badge } from "@/components/ui/badge";
 import { CourseCard } from "./CourseCard";
 import { TierBadge } from "./TierBadge";
 import { useMobileVibration } from "@/hooks/useMobileVibration";
+import { supabase } from "@/integrations/supabase/client";
 import { Search, Filter, MapPin, DollarSign, Clock, Star, Lock, Sparkles } from "lucide-react";
+import { toast } from 'sonner';
 
 interface CourseDiscoveryProps {
   userTier: 'guest' | 'free' | 'premium';
 }
 
+interface Course {
+  id: string;
+  title: string;
+  university: string;
+  country: string;
+  city: string;
+  tuition_amount: number;
+  tuition_currency: string;
+  duration_months: number;
+  rating: number;
+  discipline: string;
+  scholarship_available: boolean;
+  is_premium: boolean;
+}
+
 export const CourseDiscovery = ({ userTier }: CourseDiscoveryProps) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
   const { saveBookmark, unlockPremium } = useMobileVibration();
-  
-  // Mock course data with premium/free tiers
-  const courses = [
-    {
-      id: 1,
-      title: "Master's in Computer Science & AI",
-      university: "Technical University of Munich",
-      country: "Germany",
-      city: "Munich",
-      tuition: "€500/semester",
-      duration: "2 years",
-      rating: 4.8,
-      field: "Computer Science",
-      scholarshipAvailable: true,
-      isPremium: false
-    },
-    {
-      id: 2,
-      title: "MBA in Digital Innovation", 
-      university: "Singapore Management University",
-      country: "Singapore",
-      city: "Singapore",
-      tuition: "$65,000/year",
-      duration: "18 months",
-      rating: 4.9,
-      field: "Business",
-      scholarshipAvailable: true,
-      isPremium: true
-    },
-    {
-      id: 3,
-      title: "Bachelor's in Biomedical Engineering",
-      university: "University of Toronto",
-      country: "Canada", 
-      city: "Toronto",
-      tuition: "CAD $58,160/year",
-      duration: "4 years",
-      rating: 4.7,
-      field: "Engineering",
-      scholarshipAvailable: false,
-      isPremium: false
-    },
-    {
-      id: 4,
-      title: "PhD in Quantum Computing",
-      university: "ETH Zurich",
-      country: "Switzerland",
-      city: "Zurich", 
-      tuition: "CHF 1,298/year",
-      duration: "4-5 years",
-      rating: 4.9,
-      field: "Physics",
-      scholarshipAvailable: true,
-      isPremium: true
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching courses:', error);
+        toast.error('Failed to load courses');
+        return;
+      }
+
+      setCourses(data || []);
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Failed to load courses');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  const handleBookmark = async (courseId: string) => {
+    if (userTier === 'guest') {
+      toast.error('Please sign up to bookmark courses');
+      return;
+    }
+
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast.error('Please log in to bookmark courses');
+        return;
+      }
+
+      const { error } = await supabase
+        .from('bookmarks')
+        .insert({ 
+          course_id: courseId,
+          user_id: user.id 
+        });
+
+      if (error) {
+        if (error.code === '23505') {
+          toast.info('Course already bookmarked');
+        } else {
+          toast.error('Failed to bookmark course');
+        }
+        return;
+      }
+
+      saveBookmark();
+      toast.success('Course bookmarked!');
+    } catch (error) {
+      toast.error('Failed to bookmark course');
+    }
+  };
+
+  const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount / 100);
+  };
 
   const handleUpgrade = () => {
     unlockPremium();
@@ -79,7 +113,7 @@ export const CourseDiscovery = ({ userTier }: CourseDiscoveryProps) => {
 
   const filteredCourses = courses.filter(course => 
     course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    course.field.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    course.discipline.toLowerCase().includes(searchQuery.toLowerCase()) ||
     course.university.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -187,24 +221,47 @@ export const CourseDiscovery = ({ userTier }: CourseDiscoveryProps) => {
         )}
 
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCourses.map((course) => (
-            <CourseCard
-              key={course.id}
-              title={course.title}
-              university={course.university}
-              country={course.country}
-              city={course.city}
-              tuition={course.tuition}
-              duration={course.duration}
-              rating={course.rating}
-              field={course.field}
-              scholarshipAvailable={course.scholarshipAvailable}
-              isPremium={course.isPremium}
-              userTier={userTier}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Loading courses...</p>
+          </div>
+        ) : filteredCourses.length === 0 ? (
+          <div className="text-center py-12">
+            <h3 className="text-xl font-semibold mb-2">No courses found</h3>
+            <p className="text-muted-foreground">Try adjusting your search terms</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredCourses.map((course) => (
+              <div key={course.id} className="relative">
+                <CourseCard
+                  title={course.title}
+                  university={course.university}
+                  country={course.country}
+                  city={course.city}
+                  tuition={formatCurrency(course.tuition_amount, course.tuition_currency)}
+                  duration={`${course.duration_months} months`}
+                  rating={Number(course.rating)}
+                  field={course.discipline}
+                  scholarshipAvailable={course.scholarship_available}
+                  isPremium={course.is_premium}
+                  userTier={userTier}
+                />
+                {userTier !== 'guest' && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="absolute top-3 left-3 z-10"
+                    onClick={() => handleBookmark(course.id)}
+                  >
+                    Bookmark
+                  </Button>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Load More */}
         <div className="text-center mt-12">

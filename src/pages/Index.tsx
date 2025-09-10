@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Navigation } from "@/components/EduFlex/Navigation";
 import { Hero } from "@/components/EduFlex/Hero";
 import { CourseDiscovery } from "@/components/EduFlex/CourseDiscovery";
+import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";

@@ -1,31 +1,26 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { TierBadge } from "./TierBadge";
+import { useAuth } from "@/hooks/useAuth";
 import { useMobileVibration } from "@/hooks/useMobileVibration";
 import { 
-  GraduationCap, 
-  Menu, 
-  X, 
-  Search, 
-  BookOpen, 
-  Users, 
-  Award,
-  Settings,
-  LogIn,
-  UserPlus
-} from "lucide-react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Sparkles, Menu, X, User, LogOut, Settings, Crown, Bookmark, Users, HelpCircle } from "lucide-react";
 
-interface NavigationProps {
-  userTier: 'guest' | 'free' | 'premium';
-  isLoggedIn: boolean;
-}
-
-export const Navigation = ({ userTier, isLoggedIn }: NavigationProps) => {
+export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { receiveNotification } = useMobileVibration();
+  const { user, profile, signOut } = useAuth();
+  const { unlockPremium } = useMobileVibration();
+  
+  const userTier = profile?.tier || 'guest';
 
   const toggleMenu = () => {
-    receiveNotification();
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -34,12 +29,12 @@ export const Navigation = ({ userTier, isLoggedIn }: NavigationProps) => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <GraduationCap className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-bold text-xl">EduFlex</span>
-          </div>
+          <Link to="/" className="flex items-center space-x-2">
+            <Sparkles className="w-8 h-8 text-primary" />
+            <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+              EduFlex
+            </span>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
