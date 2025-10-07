@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Sparkles, Menu, X, User, LogOut, Settings, Crown, Bookmark, Users, HelpCircle } from "lucide-react";
+import { Sparkles, Menu, X, User, LogOut, Settings, Crown, Bookmark, Users, HelpCircle, LogIn, UserPlus, Search, BookOpen, Award } from "lucide-react";
 
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,7 +47,7 @@ export const Navigation = () => {
             <a href="#scholarships" className="text-muted-foreground hover:text-foreground transition-colors">
               Scholarships
             </a>
-            {isLoggedIn && (
+            {user && (
               <a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">
                 Projects
               </a>
@@ -56,7 +56,7 @@ export const Navigation = () => {
 
           {/* User Actions */}
           <div className="hidden md:flex items-center gap-3">
-            {isLoggedIn ? (
+            {user ? (
               <>
                 <TierBadge tier={userTier} size="sm" />
                 <Button variant="ghost" size="sm">
@@ -104,7 +104,7 @@ export const Navigation = () => {
                 <Award className="w-4 h-4" />
                 Scholarships
               </a>
-              {isLoggedIn && (
+              {user && (
                 <a href="#projects" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
                   <Users className="w-4 h-4" />
                   Projects
@@ -112,7 +112,7 @@ export const Navigation = () => {
               )}
               
               <div className="border-t border-border pt-4 mt-2">
-                {isLoggedIn ? (
+                {user ? (
                   <div className="flex items-center justify-between">
                     <TierBadge tier={userTier} size="sm" />
                     <Button variant="ghost" size="sm">

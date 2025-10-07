@@ -16,7 +16,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation userTier={userTier} isLoggedIn={isLoggedIn} />
+      <Navigation />
       
       {/* Supabase Integration Notice */}
       <Alert className="mx-4 mt-20 mb-4 border-primary/20 bg-primary/5">
