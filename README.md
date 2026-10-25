@@ -12,6 +12,10 @@ This project focuses on clarity, usability, and product thinking — bringing to
 
 Education planning can be overwhelming. Students often need to compare academic options, understand pathways, and keep track of opportunities without a clear system. I built EduFlex Pathways to create a more guided and intuitive experience for discovering programs and planning next steps.
 
+## What this project is about
+
+This is a product-focused UI project built around the student journey: discover, evaluate, save, and revisit educational opportunities in a more organized and confidence-building way.
+
 ## Key features
 
 - Student-focused education discovery experience
