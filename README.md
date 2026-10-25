@@ -1,22 +1,25 @@
 # EduFlex Pathways
 
-A student-first education discovery platform designed to help learners explore academic programs, save opportunities, and build a clearer path toward their next step.
+A student-first education discovery platform built to help learners explore academic programs, save opportunities, and make more confident decisions about their future.
 
 ## Overview
 
-EduFlex Pathways is a portfolio project focused on making education exploration feel more intuitive and structured. The platform brings together academic discovery, learner profile information, and saved opportunities in one experience designed for clarity, trust, and ease of use.
+EduFlex Pathways is designed to simplify how students discover educational opportunities. Instead of navigating fragmented information and unclear pathways, students can explore programs in a cleaner, more structured experience and keep track of the options that matter most to them.
 
-## Why this project matters
+This project focuses on clarity, usability, and product thinking — bringing together program discovery, learner profile context, and saved interests in a polished, modern interface.
 
-Choosing a program or academic path can feel overwhelming. Students often have to search across multiple sources, compare options, and make decisions without a clear decision-making experience. EduFlex Pathways is built to simplify that process by creating a more guided, user-friendly way to explore education opportunities.
+## Why I built this project
 
-## Product highlights
+Education planning can be overwhelming. Students often need to compare academic options, understand pathways, and keep track of opportunities without a clear system. I built EduFlex Pathways to create a more guided and intuitive experience for discovering programs and planning next steps.
 
-- Student-focused program discovery
-- Clean navigation and responsive interface
-- Save-and-return workflow for learning opportunities
-- Personal profile and educational journey experience
-- A polished, portfolio-ready frontend built with modern tooling
+## Key features
+
+- Student-focused education discovery experience
+- Program and pathway exploration
+- Saved opportunities and bookmarks
+- Clean, responsive UI for desktop and mobile
+- Structured learner profile and interest flow
+- Product-style frontend built with modern design systems
 
 ## Tech stack
 
@@ -27,23 +30,17 @@ Choosing a program or academic path can feel overwhelming. Students often have t
 - shadcn/ui
 - Supabase
 
-## Features
+## What this project demonstrates
 
-### Program discovery
-Students can browse relevant academic opportunities in a structured, easy-to-navigate experience.
-
-### Saved interests
-Users can keep track of programs or pathways they want to revisit later.
-
-### Personalized learner experience
-The app represents a student-centered profile and planning journey designed around clarity and consistency.
-
-### Responsive design
-The interface is built to feel clean and usable across desktop and mobile screens.
+- Product thinking and user-centered design
+- Clean frontend architecture
+- Responsive UI implementation
+- Interaction design for education-focused experiences
+- Full-stack-ready frontend integration patterns
 
 ## Screenshots
 
-Add screenshots of the UI here to showcase the product experience.
+Add 2–4 screenshots of the app here to showcase the UI and user flow.
 
 ## Getting started
 
@@ -51,7 +48,7 @@ Add screenshots of the UI here to showcase the product experience.
 
 - Node.js 18+
 - npm or pnpm
-- Supabase project
+- A Supabase project
 
 ### Installation
 
@@ -84,16 +81,20 @@ public/
 
 ## What I learned
 
-This project allowed me to focus on product thinking, user flow design, and polished frontend development in a real-world problem space. It helped me build an experience that feels intentional, structured, and presentation-ready for a portfolio.
+This project helped me strengthen my ability to:
+- design intuitive user flows
+- build polished, modern frontend experiences
+- structure a product around real user needs
+- create a portfolio project that feels intentional and presentation-ready
 
 ## Future improvements
 
-- More advanced course and program filtering
-- Personalized recommendation logic
-- Improved accessibility and onboarding flow
-- Better analytics and engagement tracking
-- More robust profile and saved-interest functionality
+- More advanced pathway recommendations
+- Better filtering and program comparison
+- Enhanced personalization for learner profiles
+- Improved accessibility and onboarding
+- More analytics and engagement tracking
 
 ## Notes
 
-This project is intended to be showcased as part of a portfolio and reflects a product-minded approach to education technology design and frontend implementation.
+This project is intended to be showcased as part of a developer portfolio and reflects a product-minded approach to building an education-focused experience.

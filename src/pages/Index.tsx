@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navigation } from "@/components/EduFlex/Navigation";
 import { Hero } from "@/components/EduFlex/Hero";
 import { CourseDiscovery } from "@/components/EduFlex/CourseDiscovery";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Database, Shield, Compass, ArrowRight } from "lucide-react";
 
